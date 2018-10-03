@@ -1,0 +1,75 @@
+<html>
+<head>
+	<style>
+	body {
+		font-family: Arial;
+	}
+		.module {
+			width: 400px;
+			height: 400px;
+			margin: 10px;
+			border: solid 1px #000;
+		}
+		h2 {
+			text-align: center;
+		    margin: 5px;
+		    height: 30px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<div id="bargraph" class="module"></div>
+	</div>
+	<script src="wes.mantooth.js"></script>
+	<script src="graphs.js"></script>
+	<script src="barGraphHorizontal.js"></script>
+	<script>
+		window.onload = function() {
+    
+    		'use strict';
+
+    		Graphs.init(400,400);
+    		Graphs.horizBarGraph(
+    			document.getElementById('bargraph'),
+    			'My Test Graph',
+    			[
+    				{
+    					text:'A',
+    					val:2500
+    				},
+    				{
+    					text:'B',
+    					val:700
+    				},
+    				{
+    					text:'C',
+    					val:1300
+    				},
+    				{
+    					text:'D',
+    					val:400
+    				},
+    				{
+    					text:'E',
+    					val:225
+    				},
+    				{
+    					text:'F',
+    					val:225
+    				},
+    				{
+    					text:'G',
+    					val:876
+    				},
+    				{
+    					text:'H',
+    					val:1100
+    				}
+    			]
+    		);
+
+    	}
+	</script>
+</body>
+</html>
