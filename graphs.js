@@ -159,10 +159,105 @@ var Graphs = (function() {
 		}
 		$w.loop(true,j);
 	}
+	/** 
+	 * comment
+	 * @method horizLineGraph
+	 * */
+	var horizLineGraph = function($t,title,data) {
+
+		let $title = document.createElement('h2');
+			$title.innerHTML = title;
+			$title.setAttribute('id','lgraphtitle_'+n_ofgraphs);
+		$t.appendChild($title);
+
+		let gheight = (height - (document.getElementById('lgraphtitle_'+n_ofgraphs).scrollHeight) - 10);
+
+
+		let max = 0;
+		for(let i=0; i<data.length; i++) {
+			if(max < data[i].val)
+				max = data[i].val;
+		}
+
+		if(max > gheight) {
+			max = (max / gheight);
+		}else{
+			max = gheight;
+		}
+
+		let j;
+		for(let i=0; i<data.length; i++) {
+			if(i==0) {
+				j = $w.add_object_single(
+					1,
+					lineGraphHorizontal,{
+						text:data[i].text,
+						val:data[i].val,
+						max:max,
+						width:width,
+						height:gheight,
+						color:colors[i],
+						values:data.length
+					},
+					$t,
+					width,
+					gheight
+				);
+			}else{
+				$w.add_object_single(
+					1,
+					lineGraphHorizontal,{
+						text:data[i].text,
+						val:data[i].val,
+						max:max,
+						width:width,
+						height:gheight,
+						color:colors[i],
+						values:data.length
+					},
+					j,
+					width,
+					gheight
+				);
+			}
+		}
+		$w.loop(true,j);
+	}
+	/** 
+	 * comment
+	 * @method posLiveDataStream
+	 * */
+	var posLiveDataStream = function($t,title,data) {
+		let $title = document.createElement('h2');
+			$title.innerHTML = title;
+			$title.setAttribute('id','lgraphtitle_'+n_ofgraphs);
+		$t.appendChild($title);
+
+		let gheight = (height - (document.getElementById('lgraphtitle_'+n_ofgraphs).scrollHeight) - 10);
+
+		let j = $w.add_object_single(
+			1,
+			positiveLiveDataStream,{
+				getFunction:data.getFunction,
+				updateint:data.updateint,
+				width:width,
+				height:gheight,
+				data:data.data
+			},
+			$t,
+			width,
+			gheight
+		);
+		$w.loop(true,j);
+
+	}
+
+
 	return {
 		init:init,
 		horizBarGraph:horizBarGraph,
-		verticalBarGraph:verticalBarGraph
+		verticalBarGraph:verticalBarGraph,
+		posLiveDataStream:posLiveDataStream
 	}
 
 })();

@@ -15,31 +15,47 @@
 			padding: 5px;
 			box-shadow: 0px 1px 5px #00000036;
 			background: aliceblue;
+            box-shadow: inset 0px -30px 70px rgba(199, 196, 232, 0.38823529411764707);
 		}
 		h2 {
 			text-align: center;
-		    margin: 0;
-			height: 30px;
-			padding: 5px;
-			background: aliceblue;
+            margin: -5px;
+            height: 30px;
+            padding: 5px;
+            border-bottom: solid 1px #ccc;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            background-color: #fff;
 		}
+        canvas {
+            margin-top: 5px;
+        }
 	</style>
 </head>
 <body>
 	<div>
 		<div id="bargraph" class="module"></div>
 		<div id="vbargraph" class="module"></div>
+        <div id="datasgraph" class="module"></div>
 	</div>
 	<script src="js/wes.mantooth.js?v=2"></script>
 	<script src="graphs.js"></script>
 	<script src="barGraphHorizontal.js"></script>
 	<script src="barGraphVertical.js"></script>
+    <script src="positiveLiveDataStream.js"></script>
 	<script>
 		window.onload = function() {
     
     		'use strict';
 
-    		Graphs.init(400,400);
+    		// INitialize the graph tool with width and height
+            Graphs.init(400,400);
+
+            /** 
+
+                Horizontal Bar Graph
+
+            */
     		Graphs.horizBarGraph(
     			document.getElementById('bargraph'),
     			'My Test Bar Graph',
@@ -78,6 +94,11 @@
     				}
     			]
     		);
+            /** 
+
+                Vertical Bar Graph
+
+            */
 			Graphs.verticalBarGraph(
     			document.getElementById('vbargraph'),
     			'My Test Bar Graph',
@@ -99,10 +120,6 @@
     					val:400
     				},
     				{
-    					text:'E',
-    					val:2500
-    				},
-    				{
     					text:'G',
     					val:230
     				},
@@ -116,7 +133,59 @@
     				}
     			]
     		);
+            // make some fake seed data to start
+            var _data = [];
+            for(let i=0; i<350; i++)
+                _data.push(Math.random() * 400);
+            Graphs.posLiveDataStream(
+                document.getElementById('datasgraph'),
+                'My Test Data Stream',{
+                    getFunction:getFakeData,
+                    updateint:10,
+                    data:_data
+                }
+            );
     	}
 	</script>
+
+    <script>
+        function pushFakeData() {
+            var data = [];
+            var flength = 500;
+            setInterval(function(){
+                  data.push(Math.random() * 400);
+
+            },5000);
+        }
+        var FOO = 0;
+        var BAR = 0;
+        /** 
+         * comment
+         * @method getFakeData
+         * */
+        function getFakeData(params,callback) {
+            let c = 0;
+            FOO++;
+            if(FOO < 50){
+                c = Math.random() * 600;
+            }
+            if(FOO > 50){
+                c = Math.random() * 800;
+            }
+            if(FOO > 100){
+                c = Math.random() * 1000;
+            }
+            if(FOO > 250){
+                c = Math.random() * 300;
+            }
+            if(FOO > 750){
+                c = Math.random() * 600;
+            }
+            if(FOO > 1000){
+                FOO = 0;
+            }
+            callback(c);
+        }
+    </script>
 </body>
 </html>
