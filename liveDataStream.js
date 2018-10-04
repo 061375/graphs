@@ -159,7 +159,8 @@ liveDataStream.prototype.draw = function(data) {
 	}
 	// draw text to show values
 	$w.canvas.text(this.i,5,10,max.toFixed(2),'fill','10px Arial','#000');
-	$w.canvas.text(this.i,5,(this.height/2),(max/2).toFixed(2),'fill','10px Arial','#000');
+	$w.canvas.text(this.i,5,(this.height/3),(max/2).toFixed(2),'fill','10px Arial','#000');
+	$w.canvas.text(this.i,5,((this.height/3)*2),(min).toFixed(2),'fill','10px Arial','#000');
 	$w.canvas.text(this.i,5,this.height-10,current.toFixed(2),'fill','10px Arial','#000');
 }
 
