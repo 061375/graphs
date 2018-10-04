@@ -115,7 +115,11 @@ var Graphs = (function() {
 				max = data[i].val;
 		}
 
-		max = (max / width);
+		if(max > gheight) {
+			max = (max / gheight);
+		}else{
+			max = gheight;
+		}
 
 		let j;
 		for(let i=0; i<data.length; i++) {
