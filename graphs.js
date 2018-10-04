@@ -23,7 +23,8 @@ var Graphs = (function() {
 		'#dd4b39',
 		'#579bfc',
 		'#7a6eff',
-		'#ffa500'
+		'#ffa500',
+		'#154096'
 	];
 
 	var width, height;
@@ -251,13 +252,43 @@ var Graphs = (function() {
 		$w.loop(true,j);
 
 	}
+	/** 
+	 * comment
+	 * @method posLiveDataStream
+	 * */
+	var livDataStream = function($t,title,data) {
+		console.log($t);
+		let $title = document.createElement('h2');
+			$title.innerHTML = title;
+			$title.setAttribute('id','lgraphtitle_'+n_ofgraphs);
+		$t.appendChild($title);
+
+		let gheight = (height - (document.getElementById('lgraphtitle_'+n_ofgraphs).scrollHeight) - 10);
+
+		let j = $w.add_object_single(
+			1,
+			liveDataStream,{
+				getFunction:data.getFunction,
+				updateint:data.updateint,
+				width:width,
+				height:gheight,
+				data:data.data
+			},
+			$t,
+			width,
+			gheight
+		);
+		$w.loop(true,j);
+
+	}
 
 
 	return {
 		init:init,
 		horizBarGraph:horizBarGraph,
 		verticalBarGraph:verticalBarGraph,
-		posLiveDataStream:posLiveDataStream
+		posLiveDataStream:posLiveDataStream,
+		livDataStream:livDataStream
 	}
 
 })();

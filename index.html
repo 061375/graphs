@@ -37,12 +37,14 @@
 		<div id="bargraph" class="module"></div>
 		<div id="vbargraph" class="module"></div>
         <div id="datasgraph" class="module"></div>
+        <div id="dataltsgraph" class="module"></div>
 	</div>
 	<script src="js/wes.mantooth.js?v=2"></script>
 	<script src="graphs.js"></script>
 	<script src="barGraphHorizontal.js"></script>
 	<script src="barGraphVertical.js"></script>
     <script src="positiveLiveDataStream.js"></script>
+    <script src="liveDataStream.js"></script>
 	<script>
 		window.onload = function() {
     
@@ -133,32 +135,47 @@
     				}
     			]
     		);
+            /** 
+
+
+                Live Stream Graph
+
+
+            **/
             // make some fake seed data to start
             var _data = [];
             for(let i=0; i<350; i++)
                 _data.push(Math.random() * 400);
+
             Graphs.posLiveDataStream(
                 document.getElementById('datasgraph'),
                 'My Test Data Stream',{
-                    getFunction:getFakeData,
-                    updateint:10,
-                    data:_data
+                    getFunction:getFakeData, // a call to a function to retreive data
+                    updateint:10,            // how often to check for updates to the data in milliseconds
+                    data:_data               // use this to seed initial data if avaiable 
+                }
+            );
+
+
+            Graphs.livDataStream(
+                document.getElementById('dataltsgraph'),
+                'Live Data Stream ( + / - )',{
+                    getFunction:getFakeData2, // a call to a function to retreive data
+                    updateint:10,            // how often to check for updates to the data in milliseconds
+                    data:_data               // use this to seed initial data if avaiable 
                 }
             );
     	}
 	</script>
 
     <script>
-        function pushFakeData() {
-            var data = [];
-            var flength = 500;
-            setInterval(function(){
-                  data.push(Math.random() * 400);
+        /** 
 
-            },5000);
-        }
+        FAKE TESTING DATA FOR THE STREAM GRAPHS
+
+        */
+        //@var {Number}
         var FOO = 0;
-        var BAR = 0;
         /** 
          * comment
          * @method getFakeData
@@ -170,7 +187,7 @@
                 c = Math.random() * 600;
             }
             if(FOO > 50){
-                c = Math.random() * 800;
+                c = -500 + Math.random() * 800;
             }
             if(FOO > 100){
                 c = Math.random() * 1000;
@@ -179,7 +196,7 @@
                 c = Math.random() * 300;
             }
             if(FOO > 750){
-                c = Math.random() * 600;
+                c = -300 + Math.random() * 500;
             }
             if(FOO > 1000){
                 FOO = 0;
