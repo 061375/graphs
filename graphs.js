@@ -37,7 +37,7 @@ var Graphs = (function() {
 
 	/** 
 	 * comment
-	 * @method barGraph
+	 * @method horizBarGraph
 	 * */
 	var horizBarGraph = function($t,title,data) {
 
@@ -95,10 +95,70 @@ var Graphs = (function() {
 		}
 		$w.loop(true,j);
 	}
+	/** 
+	 * comment
+	 * @method verticalBarGraph
+	 * */
+	var verticalBarGraph = function($t,title,data) {
 
+		let $title = document.createElement('h2');
+			$title.innerHTML = title;
+			$title.setAttribute('id','vgraphtitle_'+n_ofgraphs);
+		$t.appendChild($title);
+
+		let gheight = (height - (document.getElementById('vgraphtitle_'+n_ofgraphs).scrollHeight) - 10);
+
+
+		let max = 0;
+		for(let i=0; i<data.length; i++) {
+			if(max < data[i].val)
+				max = data[i].val;
+		}
+
+		max = (max / width);
+
+		let j;
+		for(let i=0; i<data.length; i++) {
+			if(i==0) {
+				j = $w.add_object_single(
+					1,
+					barGraphVertical,{
+						text:data[i].text,
+						val:data[i].val,
+						max:max,
+						width:width,
+						height:gheight,
+						color:colors[i],
+						values:data.length
+					},
+					$t,
+					width,
+					gheight
+				);
+			}else{
+				$w.add_object_single(
+					1,
+					barGraphVertical,{
+						text:data[i].text,
+						val:data[i].val,
+						max:max,
+						width:width,
+						height:gheight,
+						color:colors[i],
+						values:data.length
+					},
+					j,
+					width,
+					gheight
+				);
+			}
+		}
+		$w.loop(true,j);
+	}
 	return {
 		init:init,
-		horizBarGraph:horizBarGraph
+		horizBarGraph:horizBarGraph,
+		verticalBarGraph:verticalBarGraph
 	}
 
 })();

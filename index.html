@@ -1,29 +1,39 @@
 <html>
 <head>
 	<style>
-	body {
-		font-family: Arial;
-	}
+		body {
+			font-family: Arial;
+			background: #0a0a4c;
+		}
 		.module {
 			width: 400px;
 			height: 400px;
 			margin: 10px;
 			border: solid 1px #000;
+			float: left;
+			border-radius: 7px;
+			padding: 5px;
+			box-shadow: 0px 1px 5px #00000036;
+			background: aliceblue;
 		}
 		h2 {
 			text-align: center;
-		    margin: 5px;
-		    height: 30px;
+		    margin: 0;
+			height: 30px;
+			padding: 5px;
+			background: aliceblue;
 		}
 	</style>
 </head>
 <body>
 	<div>
 		<div id="bargraph" class="module"></div>
+		<div id="vbargraph" class="module"></div>
 	</div>
-	<script src="wes.mantooth.js"></script>
+	<script src="js/wes.mantooth.js?v=2"></script>
 	<script src="graphs.js"></script>
 	<script src="barGraphHorizontal.js"></script>
+	<script src="barGraphVertical.js"></script>
 	<script>
 		window.onload = function() {
     
@@ -32,11 +42,11 @@
     		Graphs.init(400,400);
     		Graphs.horizBarGraph(
     			document.getElementById('bargraph'),
-    			'My Test Graph',
+    			'My Test Bar Graph',
     			[
     				{
     					text:'A',
-    					val:2500
+    					val:400
     				},
     				{
     					text:'B',
@@ -48,7 +58,7 @@
     				},
     				{
     					text:'D',
-    					val:400
+    					val:2500
     				},
     				{
     					text:'E',
@@ -68,7 +78,44 @@
     				}
     			]
     		);
-
+			Graphs.verticalBarGraph(
+    			document.getElementById('vbargraph'),
+    			'My Test Bar Graph',
+    			[
+    				{
+    					text:'Q',
+    					val:2500
+    				},
+    				{
+    					text:'B',
+    					val:1300
+    				},
+    				{
+    					text:'C',
+    					val:700
+    				},
+    				{
+    					text:'D',
+    					val:400
+    				},
+    				{
+    					text:'E',
+    					val:2500
+    				},
+    				{
+    					text:'G',
+    					val:230
+    				},
+    				{
+    					text:'G',
+    					val:876
+    				},
+    				{
+    					text:'H',
+    					val:1100
+    				}
+    			]
+    		);
     	}
 	</script>
 </body>
