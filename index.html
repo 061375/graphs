@@ -38,6 +38,10 @@
 		<div id="vbargraph" class="module"></div>
         <div id="datasgraph" class="module"></div>
         <div id="dataltsgraph" class="module"></div>
+        <div id="linegraph" class="module"></div>
+        <div class="module"></div>
+        <div class="module"></div>
+        <div class="module"></div>
 	</div>
 	<script src="js/wes.mantooth.js?v=2"></script>
 	<script src="graphs.js"></script>
@@ -45,12 +49,14 @@
 	<script src="barGraphVertical.js"></script>
     <script src="positiveLiveDataStream.js"></script>
     <script src="liveDataStream.js"></script>
+    <script src="areaChart.js"></script>
+    <script src="dummy.js"></script>
 	<script>
 		window.onload = function() {
     
     		'use strict';
 
-    		// INitialize the graph tool with width and height
+    		// Initialize the graph tool with width and height
             Graphs.init(400,400);
 
             /** 
@@ -137,6 +143,29 @@
     		);
             /** 
 
+                Area Chart
+
+            */
+            Graphs.areaChart(
+                document.getElementById('linegraph'),
+                'My Test Area Chart',
+                [
+                    {
+                        text:'A',
+                        vals:[200,30,180,27,420]
+                    },
+                    {
+                        text:'B',
+                        vals:[15,24,36,87,24]
+                    },
+                    {
+                        text:'C',
+                        vals:[158,24,100,66,84]
+                    }
+                ]
+            );
+            /** 
+
 
                 Live Stream Graph
 
@@ -171,81 +200,5 @@
             );
     	}
 	</script>
-
-    <script>
-        /** 
-
-        FAKE TESTING DATA FOR THE STREAM GRAPHS
-
-        */
-        //@var {Number}
-        var FOO = 0;
-        /** 
-         * comment
-         * @method getFakeData
-         * */
-        var getFakeData = function(params) {
-            return new Promise(
-                function (resolve, reject) {
-                    //console.log(params);
-                    let c = 0;
-                    FOO++;
-                    if(FOO < 50){
-                        c = Math.random() * 600;
-                    }
-                    if(FOO > 50){
-                        c = Math.random() * 100;
-                    }
-                    if(FOO > 100){
-                        c = Math.random() * 1000;
-                    }
-                    if(FOO > 250){
-                        c = Math.random() * 300;
-                    }
-                    if(FOO > 750){
-                        c = Math.random() * 1500;
-                    }
-                    if(FOO > 1000){
-                        FOO = 0;
-                    }
-                    resolve(c);
-                }
-            );
-        }
-         //@var {Number}
-        var BAR = 0;
-        /** 
-         * comment
-         * @method getFakeData
-         * */
-        function getFakeData2(params,callback) {
-            return new Promise(
-                function (resolve, reject) {
-                    let c = 0;
-                    
-                    BAR++;
-                    if(BAR < 250){
-                        c = -300 + Math.random() * 600;
-                    }
-                    if(BAR > 250){
-                        c = -400 + Math.random() * 800;
-                    }
-                    if(BAR > 300){
-                        c = -1000 + Math.random() * 2000;
-                    }
-                    if(BAR > 450){
-                        c = -150 + Math.random() * 300;
-                    }
-                    if(BAR > 850){
-                        c = -300 + Math.random() * 600;
-                    }
-                    if(BAR > 1000){
-                        BAR = 0;
-                    }
-                    resolve(c);
-                }
-            );
-        }
-    </script>
 </body>
 </html>

@@ -286,6 +286,69 @@ var Graphs = (function() {
 		$w.loop(true,j);
 
 	}
+	/** 
+	 * comment
+	 * @method areaChart
+	 * */
+	var areaChart = function($t,title,data) {
+		let $title = document.createElement('h2');
+			$title.innerHTML = title;
+			$title.setAttribute('id','acharttitle_'+n_ofgraphs);
+		$t.appendChild($title);
+
+		let gheight = (height - (document.getElementById('acharttitle_'+n_ofgraphs).scrollHeight) - 10);
+
+		let max = 0;
+		for(let i=0; i<data.length; i++) {
+			for(let j=0; j<data[i].vals.length; j++) {
+				if(max < data[i].vals[j])
+					max = data[i].vals[j];
+			}
+		}
+
+		if(max > gheight) {
+			max = (max / gheight);
+		}else{
+			max = gheight;
+		}
+console.log(max);
+		let j;
+		for(let i=0; i<data.length; i++) {
+			if(i==0) {
+				j = $w.add_object_single(
+					1,
+					AreaChart,{
+						text:data[i].text,
+						vals:data[i].vals,
+						max:max,
+						width:width,
+						height:gheight,
+						color:colors[i]
+					},
+					$t,
+					width,
+					gheight
+				);
+			}else{
+				$w.add_object_single(
+					1,
+					AreaChart,{
+						text:data[i].text,
+						vals:data[i].vals,
+						max:max,
+						width:width,
+						height:gheight,
+						color:colors[i]
+					},
+					j,
+					width,
+					gheight
+				);
+			}
+		}
+		//$w.loop(true,j);
+
+	}
 
 
 	return {
@@ -293,7 +356,8 @@ var Graphs = (function() {
 		horizBarGraph:horizBarGraph,
 		verticalBarGraph:verticalBarGraph,
 		posLiveDataStream:posLiveDataStream,
-		livDataStream:livDataStream
+		livDataStream:livDataStream,
+		areaChart:areaChart
 	}
 
 })();
