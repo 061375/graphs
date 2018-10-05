@@ -288,6 +288,9 @@ var Graphs = (function() {
 	}
 	/** 
 	 * comment
+	 * @param {Object}
+	 * @param {String}
+	 * @param {Array}
 	 * @method areaChart
 	 * */
 	var areaChart = function($t,title,data) {
@@ -311,7 +314,7 @@ var Graphs = (function() {
 		}else{
 			max = gheight;
 		}
-console.log(max);
+		// @let {Number}
 		let j;
 		for(let i=0; i<data.length; i++) {
 			if(i==0) {
@@ -346,7 +349,7 @@ console.log(max);
 				);
 			}
 		}
-		//$w.loop(true,j);
+		$w.loop(true,j);
 
 	}
 
