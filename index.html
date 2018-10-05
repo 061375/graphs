@@ -39,7 +39,7 @@
         <div id="datasgraph" class="module"></div>
         <div id="dataltsgraph" class="module"></div>
         <div id="linegraph" class="module"></div>
-        <div class="module"></div>
+        <div id="piechart" class="module"></div>
         <div class="module"></div>
         <div class="module"></div>
 	</div>
@@ -50,6 +50,7 @@
     <script src="positiveLiveDataStream.js"></script>
     <script src="liveDataStream.js"></script>
     <script src="areaChart.js"></script>
+    <script src="pieChart.js"></script>
     <script src="dummy.js"></script>
 	<script>
 		window.onload = function() {
@@ -196,6 +197,18 @@
                     getParams:{blah:'B'},
                     updateint:30,            // how often to check for updates to the data in milliseconds
                     data:_data               // use this to seed initial data if avaiable 
+                }
+            );
+
+            /** 
+
+                Pie Chart
+
+            **/
+            Graphs.pieChart(
+                document.getElementById('piechart'),
+                'Pie Chart',{
+                    data:[200, 60, 15]
                 }
             );
     	}

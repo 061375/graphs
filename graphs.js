@@ -352,7 +352,33 @@ var Graphs = (function() {
 		$w.loop(true,j);
 
 	}
+	/** 
+	 * comment
+	 * @method posLiveDataStream
+	 * */
+	var pieChart = function($t,title,data) {
+		let $title = document.createElement('h2');
+			$title.innerHTML = title;
+			$title.setAttribute('id','pcharttitle_'+n_ofgraphs);
+		$t.appendChild($title);
 
+		let gheight = (height - (document.getElementById('pcharttitle_'+n_ofgraphs).scrollHeight) - 10);
+
+		let j = $w.add_object_single(
+			1,
+			PieChart,{
+				width:width,
+				height:gheight,
+				data:data.data,
+				colors:colors
+			},
+			$t,
+			width,
+			gheight
+		);
+		//$w.loop(true,j);
+
+	}
 
 	return {
 		init:init,
@@ -360,7 +386,8 @@ var Graphs = (function() {
 		verticalBarGraph:verticalBarGraph,
 		posLiveDataStream:posLiveDataStream,
 		livDataStream:livDataStream,
-		areaChart:areaChart
+		areaChart:areaChart,
+		pieChart:pieChart
 	}
 
 })();

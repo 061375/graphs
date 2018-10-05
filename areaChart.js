@@ -75,7 +75,7 @@ AreaChart.prototype.makedata = function(data,animate) {
  * @returns {Void}
  * */
 AreaChart.prototype.draw = function(data) {	
-	$w.canvas.polygon(this.i,data,this.color,'fill',this.color,0.2);
+	$w.canvas.polygon(this.i,data,this.color,'fill',this.color,0.1);
 	// draw the stroke a few times to make it show up real nice
 	$w.canvas.polygon(this.i,data,'#000','stroke','#000',1);
 	$w.canvas.polygon(this.i,data,'#000','stroke','#000',1);
