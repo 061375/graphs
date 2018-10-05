@@ -9,7 +9,7 @@ Working on a simpler user interface for a Rasberry Pi that needs to be rather li
 Needed some graphs that could update using live data.
 Something like Google Charts was overkill and I need the source to be local so it can work sans internet.
 
-As of this update, this took me about 5 hours or so...
+![alt text](https://github.com/061375/graphs/graphs-v2.png "Screenshot v1")
 
 ### Horizontal Bar Graph
 ```
