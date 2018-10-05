@@ -1,4 +1,8 @@
 /** 
+ * Graphs
+ * @author Jeremy Heminger <contact@jeremyheminger.com>
+ *
+ * This class sort of wraps the Wes Mantoothian way that I create classes to make things easier
  * 
  *
  * */
@@ -240,6 +244,7 @@ var Graphs = (function() {
 			1,
 			positiveLiveDataStream,{
 				getFunction:data.getFunction,
+				getParams:data.getParams,
 				updateint:data.updateint,
 				width:width,
 				height:gheight,
@@ -257,7 +262,6 @@ var Graphs = (function() {
 	 * @method posLiveDataStream
 	 * */
 	var livDataStream = function($t,title,data) {
-		console.log($t);
 		let $title = document.createElement('h2');
 			$title.innerHTML = title;
 			$title.setAttribute('id','lgraphtitle_'+n_ofgraphs);
@@ -269,6 +273,7 @@ var Graphs = (function() {
 			1,
 			liveDataStream,{
 				getFunction:data.getFunction,
+				getParams:data.getParams,
 				updateint:data.updateint,
 				width:width,
 				height:gheight,
