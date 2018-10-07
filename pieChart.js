@@ -1,7 +1,6 @@
 /** 
  * AreaChart
  * @param {Object}
- 8 https://stackoverflow.com/questions/6995797/html5-canvas-pie-chart
  * */
 var PieChart = function(o) {
 
@@ -58,7 +57,7 @@ PieChart.prototype.gettotal = function(data) {
 PieChart.prototype.draw = function(data) {	
 	let le = 0;
 	for(let i=0; i<data.length; i++){
-		$w.canvas.arc(this.i,this.width/2,this.height/2,(this.width/3),le,le + (Math.PI * 2 * (data[i] / this.total)),false,this.colors[i]);
+		$w.canvas.arc(this.i,this.width/2,this.height/2,(this.width/3),le,le + (Math.PI * 2 * (data[i] / this.total)),false,this.colors[i],'fill');
 		le += Math.PI * 2 * (data[i] / this.total);
 	}
 }
