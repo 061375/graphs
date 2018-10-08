@@ -97,3 +97,14 @@
                 }
             ); 
         }
+        /** 
+         * comment
+         * @method getFakeSPdata
+         * */
+        function getFakeSPdata(params) {
+            return new Promise(
+                function (resolve, reject) {
+                    resolve(Math.random() * params.maxp);
+                }
+            );   
+        }

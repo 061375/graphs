@@ -16,6 +16,7 @@
 			box-shadow: 0px 1px 5px #00000036;
 			background: aliceblue;
             box-shadow: inset 0px -30px 70px rgba(199, 196, 232, 0.38823529411764707);
+            position: relative;
 		}
 		h2 {
 			text-align: center;
@@ -29,6 +30,7 @@
 		}
         canvas {
             margin-top: 5px;
+            position: absolute;
         }
 	</style>
 </head>
@@ -40,7 +42,7 @@
         <div id="dataltsgraph" class="module"></div>
         <div id="linegraph" class="module"></div>
         <div id="piechart" class="module"></div>
-        <div class="module"></div>
+        <div id="pspeedo" class="module"></div>
         <div class="module"></div>
 	</div>
 	<script src="js/wes.mantooth.js?v=3"></script>
@@ -51,6 +53,7 @@
     <script src="liveDataStream.js"></script>
     <script src="areaChart.js"></script>
     <script src="pieChart.js"></script>
+    <script src="pressureSpeedo.js"></script>
     <script src="dummy.js"></script>
 	<script>
 		window.onload = function() {
@@ -227,6 +230,26 @@
                 'Pie Chart',{
                     // seed data
                     data:[200, 60, 15]
+                }
+            );
+
+            /** 
+
+                Pressure / Speedometer
+
+            **/
+            Graphs.pressureSpeedo(
+                document.getElementById('pspeedo'),
+                'Pressure / Speedometer',{
+                    // seed data
+                    getFunction:getFakeSPdata, // a call to a function to retreive data (fake functions located in dummy.js )
+                    getParams:{},
+                    updateint:500,
+                    rspeed:0.5,
+                    divisor:12,
+                    shownumbers:true,
+                    maxp:500,
+                    measure:'psi'
                 }
             );
     	}

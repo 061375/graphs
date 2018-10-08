@@ -397,6 +397,51 @@ var Graphs = (function() {
 		//$w.loop(true,j);
 
 	}
+	/** 
+	 * comment
+	 * @method pressureSpeedo
+	 * */
+	var pressureSpeedo = function($t,title,data) {
+		let $title = document.createElement('h2');
+			$title.innerHTML = title;
+			$title.setAttribute('id','pspeedotitle_'+n_ofgraphs);
+		$t.appendChild($title);
+
+		let gheight = (height - (document.getElementById('pspeedotitle_'+n_ofgraphs).scrollHeight) - 10);
+
+		$w.add_object(
+			1,
+			PressureSpeedoGauge,{
+				width:width,
+				height:gheight,
+				divisor:data.divisor,
+				shownumbers:data.shownumbers,
+				maxp:data.maxp
+			},
+			$t,
+			width,
+			gheight
+		);
+		let j = $w.add_object_single(
+			1,
+			PressureSpeedo,{
+				getFunction:data.getFunction,
+				getParams:data.getParams,
+				updateint:data.updateint,
+				width:width,
+				height:gheight,
+				rspeed:data.rspeed,
+				maxp:data.maxp,
+				measure:data.measure,
+				data:0
+			},
+			$t,
+			width,
+			gheight
+		);
+		$w.loop(true,j);
+
+	}
 
 	return {
 		init:init,
@@ -405,7 +450,8 @@ var Graphs = (function() {
 		posLiveDataStream:posLiveDataStream,
 		livDataStream:livDataStream,
 		areaChart:areaChart,
-		pieChart:pieChart
+		pieChart:pieChart,
+		pressureSpeedo:pressureSpeedo
 	}
 
 })();
