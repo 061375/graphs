@@ -177,6 +177,20 @@ var PressureSpeedoGauge = function(o) {
 PressureSpeedoGauge.prototype.loop = function() {	
 }
 /**
+ * @param {Array}
+ * @returns {Void}
+ * */
+PressureSpeedoGauge.prototype.warning = function(s,e) {
+	$w.canvas.arc(this.i,this.hwidth,this.hheight,((this.width/3)),$w.math.radians(s),$w.math.radians(e),false,'#ffff00','fill');
+}
+/**
+ * @param {Array}
+ * @returns {Void}
+ * */
+PressureSpeedoGauge.prototype.danger = function(s,e) {
+	$w.canvas.arc(this.i,this.hwidth,this.hheight,((this.width/3)),$w.math.radians(s),$w.math.radians(e),false,'#ff0000','fill');
+}
+/**
  * build the  array to pass to the draw method
  * @param {Array}
  * @param {Boolean}
@@ -200,6 +214,8 @@ PressureSpeedoGauge.prototype.trig = function(x,y,d,r) {
  * @returns {Void}
  * */
 PressureSpeedoGauge.prototype.drawgauge = function() {	
+	this.warning(270,330);
+	this.danger(330,360);
 	let r = (this.width/3);
 	let ii = 0;
 	// draw circle
@@ -216,4 +232,5 @@ PressureSpeedoGauge.prototype.drawgauge = function() {
 			ii+=this.gaugeinc;
 		}
 	}
+	
 }

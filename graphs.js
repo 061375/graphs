@@ -416,7 +416,9 @@ var Graphs = (function() {
 				height:gheight,
 				divisor:data.divisor,
 				shownumbers:data.shownumbers,
-				maxp:data.maxp
+				maxp:data.maxp,
+				warning:data.warning,
+				danger:data.danger
 			},
 			$t,
 			width,
