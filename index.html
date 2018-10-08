@@ -67,41 +67,45 @@
             */
     		Graphs.horizBarGraph(
     			document.getElementById('bargraph'),
-    			'My Test Bar Graph',
-    			[
-    				{
-    					text:'A',
-    					val:400
-    				},
-    				{
-    					text:'B',
-    					val:700
-    				},
-    				{
-    					text:'C',
-    					val:1300
-    				},
-    				{
-    					text:'D',
-    					val:2500
-    				},
-    				{
-    					text:'E',
-    					val:225
-    				},
-    				{
-    					text:'F',
-    					val:225
-    				},
-    				{
-    					text:'G',
-    					val:876
-    				},
-    				{
-    					text:'H',
-    					val:1100
-    				}
-    			]
+    			'My Test Bar Graph',{
+                    getFunction:getFakeBarData, // a call to a function to retreive data
+                    getParams:{},
+        			updateint:1000,
+                        data:[
+            				{
+            					text:'A',
+            					val:400
+            				},
+            				{
+            					text:'B',
+            					val:700
+            				},
+            				{
+            					text:'C',
+            					val:1300
+            				},
+            				{
+            					text:'D',
+            					val:2500
+            				},
+            				{
+            					text:'E',
+            					val:225
+            				},
+            				{
+            					text:'F',
+            					val:225
+            				},
+            				{
+            					text:'G',
+            					val:876
+            				},
+            				{
+            					text:'H',
+            					val:1100
+            				}
+            			]
+                    }
     		);
             /** 
 

@@ -26,27 +26,68 @@ var barGraphHorizontal = function(o) {
 
 	this.bwidth = this.val / this.max;
 
-	this.wnow = 0;
+	this.now = 0;
 
-	this.put();
+	this.updateint = o.updateint;
 
+	this.updatecounter = 0;
+
+	this.animspeed = 1;
+
+	// for get
+	if (undefined === o.getFunction) {
+		// throw error
+		console.log('Error: getFunction is a required parameter when in mode 0');
+		return false;
+	}else{
+		this.getFunction = o.getFunction;
+	}
+	if (undefined === o.getParams) {
+		this.getParams = {};
+	}else{
+		this.getParams = o.getParams;
+	}
 }
 /**
  * the loop
  * @returns {Void}
  * */
 barGraphHorizontal.prototype.loop = function() {
-	$w.canvas.rectangle(this.i,this.x,this.y,this.wnow,(this.x + this.bheight),this.color,'fill',this.color);
-	$w.canvas.line(this.i,this.x,(this.y + this.bheight),this.width,(this.y + this.bheight),'#ccc');
-	$w.canvas.text(this.i,this.x+21,(this.y+((this.bheight / 3)*2)+1),this.text+': '+this.val,'stroke','20px Arial','#000');
-	if(this.wnow < this.bwidth)this.wnow+=15;
+	this.updatecounter++;
+	if(this.updatecounter >= this.updateint) {
+		this.updatecounter = 0;
+		this.get(this.getFunction,this.getParams);
+	}else{
+		if((this.now+this.animspeed) > this.bwidth)
+			this.now-=this.animspeed;
+		if((this.now-this.animspeed) < this.bwidth)
+			this.now+=this.animspeed;
+		this.draw();
+	}
 }
-
 /**
- * 
+ * gets data from an external location using a function defined by the user
+ * @param {Function}
+ * @param {Object}
  * @returns {Void}
  * */
-barGraphHorizontal.prototype.put = function() {
-	$w.canvas.rectangle(this.i,this.x,this.y,0,(this.x + this.bheight),this.color,'fill',this.color);
+barGraphHorizontal.prototype.get = function(getFunction,params) {
+	if(typeof getFunction === 'function') {
+		var p = getFunction(params);
+		p.then((data) => {
+			this.val = data.toFixed(2);
+			this.bwidth = this.val;
+			this.bwidth = this.val / this.max;
+		});
+	}
+}
+/**
+ * the loop
+ * @returns {Void}
+ * */
+barGraphHorizontal.prototype.draw = function() {
+
+	$w.canvas.rectangle(this.i,this.x,this.y,this.now,(this.x + this.bheight),this.color,'fill',this.color);
+	$w.canvas.line(this.i,this.x,(this.y + this.bheight),this.width,(this.y + this.bheight),'#ccc');
 	$w.canvas.text(this.i,this.x+21,(this.y+((this.bheight / 3)*2)+1),this.text+': '+this.val,'stroke','20px Arial','#000');
 }

@@ -84,3 +84,14 @@
                 }
             );  
         }
+        /** 
+         * comment
+         * @method getFakeBarData
+         * */
+        function getFakeBarData(params) {
+            return new Promise(
+                function (resolve, reject) {
+                    resolve(Math.random() * 2500);
+                }
+            ); 
+        }

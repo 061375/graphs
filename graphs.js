@@ -55,26 +55,29 @@ var Graphs = (function() {
 
 
 		let max = 0;
-		for(let i=0; i<data.length; i++) {
-			if(max < data[i].val)
-				max = data[i].val;
+		for(let i=0; i<data.data.length; i++) {
+			if(max < data.data[i].val)
+				max = data.data[i].val;
 		}
 
 		max = (max / width);
 
 		let j;
-		for(let i=0; i<data.length; i++) {
+		for(let i=0; i<data.data.length; i++) {
 			if(i==0) {
 				j = $w.add_object_single(
 					1,
 					barGraphHorizontal,{
-						text:data[i].text,
-						val:data[i].val,
+						text:data.data[i].text,
+						val:data.data[i].val,
 						max:max,
 						width:width,
 						height:gheight,
 						color:colors[i],
-						values:data.length
+						values:data.data.length,
+						updateint:data.updateint,
+						getFunction:data.getFunction,
+						getParams:data.getParams,
 					},
 					$t,
 					width,
@@ -84,13 +87,16 @@ var Graphs = (function() {
 				$w.add_object_single(
 					1,
 					barGraphHorizontal,{
-						text:data[i].text,
-						val:data[i].val,
+						text:data.data[i].text,
+						val:data.data[i].val,
 						max:max,
 						width:width,
 						height:gheight,
 						color:colors[i],
-						values:data.length
+						values:data.data.length,
+						updateint:data.updateint,
+						getFunction:data.getFunction,
+						getParams:data.getParams,
 					},
 					j,
 					width,

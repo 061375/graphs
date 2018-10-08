@@ -100,16 +100,8 @@ AreaChart.prototype.makedata = function(data,animate) {
 
 	this.drawdata = [[j,this.height]];
 	
-	//console.log(this.now[0],(this.height-(data[0]/this.max)),data[0]);
 	for (let i=0; i<data.length; i++) {
 		if(animate) {
-			/*
-			if(this.now > (this.height-(data[i]/this.max))) {
-				da = [j,this.now];
-			}else{
-				da = [j,(this.height-(data[i]/this.max))];
-			}
-			*/
 			if((this.now[i]+this.animspeed) > (this.height-(data[i]/this.max))) {
 				this.now[i]-=this.animspeed;
 			}
@@ -117,8 +109,6 @@ AreaChart.prototype.makedata = function(data,animate) {
 				this.now[i]+=this.animspeed;
 			}
 			da = [j,this.now[i]];
-			//if(this.z==0 && i==1)
-				//console.log(this.now[i],(this.height-(data[i]/this.max)),data[i],da);
 		}else{
 			da = [j,(this.height-(data[i]/this.max))];
 		}
@@ -134,8 +124,6 @@ AreaChart.prototype.makedata = function(data,animate) {
  * @returns {Void}
  * */
 AreaChart.prototype.draw = function(data) {	
-	//if(this.z==0)
-		//console.log(data);
 	$w.canvas.polygon(this.i,data,this.color,'fill',this.color,0.1);
 	// draw the stroke a few times to make it show up real nice
 	$w.canvas.polygon(this.i,data,'#000','stroke','#000',1);

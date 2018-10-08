@@ -20,9 +20,6 @@ var PieChart = function(o) {
 
 	this.draw(this.data);
 
-	// uncomment to draw without animation
-	//this.draw(this.makedata(this.data,false));
-
 }
 /**
  * the loop
