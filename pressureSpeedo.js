@@ -79,6 +79,16 @@ PressureSpeedo.prototype.get = function(getFunction,params) {
 		});
 	}
 }
+/**
+ * Allows external method to push data to the gauge
+ * @param {Function}
+ * @param {Object}
+ * @returns {Void}
+ * */
+PressureSpeedo.prototype.push = function(data) {
+	this.real = data;
+	this.calc(data);
+}
 /** 
  * comment
  * @method calc
