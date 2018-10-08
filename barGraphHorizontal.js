@@ -26,7 +26,7 @@ var barGraphHorizontal = function(o) {
 
 	this.bwidth = this.val / this.max;
 
-	this.now = 0;
+	this.now = this.width;
 
 	this.updateint = o.updateint;
 

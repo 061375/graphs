@@ -68,7 +68,7 @@
     		Graphs.horizBarGraph(
     			document.getElementById('bargraph'),
     			'My Test Bar Graph',{
-                    getFunction:getFakeBarData, // a call to a function to retreive data
+                    getFunction:getFakeBarData, // a call to a function to retreive data (fake functions located in dummy.js )
                     getParams:{},
         			updateint:1000,
                         data:[
@@ -114,37 +114,41 @@
             */
 			Graphs.verticalBarGraph(
     			document.getElementById('vbargraph'),
-    			'My Test Bar Graph',
-    			[
-    				{
-    					text:'Q',
-    					val:2400
-    				},
-    				{
-    					text:'B',
-    					val:1300
-    				},
-    				{
-    					text:'C',
-    					val:700
-    				},
-    				{
-    					text:'D',
-    					val:400
-    				},
-    				{
-    					text:'G',
-    					val:230
-    				},
-    				{
-    					text:'G',
-    					val:876
-    				},
-    				{
-    					text:'H',
-    					val:1100
-    				}
-    			]
+    			'My Test Bar Graph',{
+                    getFunction:getFakeBarData, // a call to a function to retreive data (fake functions located in dummy.js )
+                    getParams:{},
+                    updateint:1000,
+        			data:[
+        				{
+        					text:'Q',
+        					val:2400
+        				},
+        				{
+        					text:'B',
+        					val:1300
+        				},
+        				{
+        					text:'C',
+        					val:700
+        				},
+        				{
+        					text:'D',
+        					val:400
+        				},
+        				{
+        					text:'G',
+        					val:230
+        				},
+        				{
+        					text:'G',
+        					val:876
+        				},
+        				{
+        					text:'H',
+        					val:1100
+        				}
+        			]
+                }
     		);
             /** 
 
@@ -154,12 +158,13 @@
             Graphs.areaChart(
                 document.getElementById('linegraph'),
                 'My Test Area Chart',{
-                    getFunction:getFakeAreaData, // a call to a function to retreive data
+                    getFunction:getFakeAreaData, // a call to a function to retreive data (fake functions located in dummy.js )
                     getParams:{
                         len:5,
                         max:1000
                     },
                     updateint:1000,            // how often to check for updates to the data in milliseconds
+                    // inital seed data
                     data:[
                         {
                             text:'A',
@@ -191,21 +196,22 @@
             Graphs.posLiveDataStream(
                 document.getElementById('datasgraph'),
                 'My Test Data Stream',{
-                    getFunction:getFakeData, // a call to a function to retreive data
-                    getParams:{blah:'A'},
+                    getFunction:getFakeData, // a call to a function to retreive data (fake functions located in dummy.js )
+                    getParams:{},
                     updateint:30,            // how often to check for updates to the data in milliseconds
                     data:_data               // use this to seed initial data if avaiable 
                 }
             );
-
+            // make some fake seed data to start
             _data = [];
             for(let i=0; i<350; i++)
                 _data.push(-300 + Math.random() * 600);
+
             Graphs.livDataStream(
                 document.getElementById('dataltsgraph'),
                 'Live Data Stream ( + / - )',{
-                    getFunction:getFakeData2, // a call to a function to retreive data
-                    getParams:{blah:'B'},
+                    getFunction:getFakeData2, // a call to a function to retreive data (fake functions located in dummy.js )
+                    getParams:{},
                     updateint:30,            // how often to check for updates to the data in milliseconds
                     data:_data               // use this to seed initial data if avaiable 
                 }
@@ -219,6 +225,7 @@
             Graphs.pieChart(
                 document.getElementById('piechart'),
                 'Pie Chart',{
+                    // seed data
                     data:[200, 60, 15]
                 }
             );
