@@ -11,6 +11,12 @@ Something like Google Charts was overkill and I need the source to be local so i
 
 ![alt text](https://github.com/061375/graphs/blob/master/graphs-v3.png?raw=true "Screenshot v2")
 
+To view some usage examples view the index.html file.
+
+The fake data is updated using functions found in dummy.js
+
+User defined get functions assume that the data will need to be retreived and that there will be some lag. For this reason user defined functions require a promise. examples in dummy.js
+
 ### Horizontal Bar Graph
 ```
 /** 
@@ -51,4 +57,26 @@ Something like Google Charts was overkill and I need the source to be local so i
  * @param {Array} list of object with parameters
  **/
  livDataStream($t,title,data)
+```
+
+### Area Chart
+```
+/** 
+ * live data 
+ * @param {Object} a DOM node
+ * @param {String} the title of the module
+ * @param {Object} object parameters
+ **/
+ areaChart($t,title,data)
+```
+
+### Pie Chart
+```
+/** 
+ * live data 
+ * @param {Object} a DOM node
+ * @param {String} the title of the module
+ * @param {Array} list of values
+ **/
+ pieChart($t,title,data)
 ```
