@@ -435,7 +435,8 @@ var Graphs = (function() {
 				rspeed:data.rspeed,
 				maxp:data.maxp,
 				measure:data.measure,
-				data:0
+				data:0,
+				mode:data.mode
 			},
 			$t,
 			width,
@@ -443,7 +444,31 @@ var Graphs = (function() {
 		);
 		$w.loop(true,j);
 
+		return j;
 	}
+	/** 
+	 * comment
+	 * @method setPushData
+	 * */
+	var setPushData = function(ref,method,data) {
+		switch(method) {
+			case 'pressureSpeedo':
+				method = 'PressureSpeedo';
+			break;
+		}
+		if(undefined !== $w.objects[method]) {
+			for(let obj in $w.objects[method]) {
+				console.log($w.objects[method][obj],ref);
+				if($w.objects[method].hasOwnProperty(obj)) {
+					if($w.objects[method][obj].z == ref) {
+						$w.objects[method][obj].push(data);
+					}
+				}
+			}
+			
+		}
+	}
+
 
 	return {
 		init:init,
@@ -453,7 +478,8 @@ var Graphs = (function() {
 		livDataStream:livDataStream,
 		areaChart:areaChart,
 		pieChart:pieChart,
-		pressureSpeedo:pressureSpeedo
+		pressureSpeedo:pressureSpeedo,
+		setPushData:setPushData
 	}
 
 })();

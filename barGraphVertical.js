@@ -64,7 +64,6 @@ barGraphVertical.prototype.loop = function() {
 			this.now-=this.animspeed;
 		if((this.now-this.animspeed) < bheight)
 			this.now+=this.animspeed;
-		//if(this.z==0)console.log(this.now);
 		this.draw();
 	}
 }

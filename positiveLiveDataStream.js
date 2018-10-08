@@ -1,30 +1,26 @@
 /** 
  * Draws a graph of streaming events only positive data
  * The GET function allows a user-defined function to get the data with a callback
+ * @param {Object}
  * */
 var positiveLiveDataStream = function(o) {
 
+	// @var {Number} - reference to canvas
 	this.i = o.i;
-
+	// @var {Number}
 	this.height = o.height;
-
+	// @var {Number}
 	this.width = o.width;
-
+	// @var {Boolean}
 	this.bool = false;
-
-	/* *
-	 * 
-	 * 0 - data is pushed to the program
-	 * 1 - program requests data
-	 *
-	 * */
-	//this.mode = o.mode;
-
+	// @var {Number}
 	this.updateint = o.updateint;
-
+	// @var {Number}
 	this.updatecounter = 0;
-
+	// @var {Boolean}
 	this.updategraph = false;
+	// @var {Number}
+	this.maxdatalength = this.width - 100;
 
 	if(undefined === o.data) {
 		this.data = [];
@@ -33,9 +29,13 @@ var positiveLiveDataStream = function(o) {
 		this.data = JSON.parse(_d);
 	}
 
-	this.maxdatalength = this.width - 100;
+	
 
-	// for get
+	/** 
+	 *
+	 * for get
+	 *
+	 */
 	if (undefined === o.getFunction) {
 		// throw error
 		console.log('Error: getFunction is a required parameter when in mode 0');
@@ -62,29 +62,12 @@ positiveLiveDataStream.prototype.loop = function() {
 		this.draw(this.data);
 	}
 }
-
-/**
- * 
- * @returns {Void}
+/** 
+ * comment
+ * @method add
+ * @param {Array}
  * */
-positiveLiveDataStream.prototype.init = function() {
-
-}
-/**
- * 
- * @deprecated true - might need this, but not right now
- * @returns {Void}
- * */
-positiveLiveDataStream.prototype.check = function() {
-	if(JSON.stringify(this.data) != JSON.stringify(this.newdata)) {
-		// data has changed ... go with new data
-		this.data = this.newdata;
-		this.updategraph = true;
-	}else{
-		this.updategraph = false;
-	}
-}
-positiveLiveDataStream.prototype.add = function(data,callback) {
+positiveLiveDataStream.prototype.add = function(data) {
 	this.data.push(data);
 	if(this.data.length > this.maxdatalength)
 		this.data.shift();
@@ -96,7 +79,7 @@ positiveLiveDataStream.prototype.add = function(data,callback) {
  * @returns {Void}
  * */
 positiveLiveDataStream.prototype.push = function(data) {
-	this.newdata = data;
+	this.add(data);
 }
 /**
  * gets data from an external location using a function defined by the user
@@ -123,8 +106,9 @@ positiveLiveDataStream.prototype.draw = function(data) {
 	let current = 0;
 	// @var {Number}
 	let max = 0;
-
+	// @var {Number}
 	let min = 0;
+	
 	// initial loop to get the max value currently
 	for(let x=0; x<data.length; x++) {
 		if(data[x] > max)

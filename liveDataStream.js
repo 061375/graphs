@@ -1,40 +1,40 @@
 /** 
  * Draws a graph of streaming event data
  * The GET function allows a user-defined function to get the data with a callback
+ * @var {Object}
  * */
 var liveDataStream = function(o) {
 
+	// @var {Number} - reference to canvas
 	this.i = o.i;
-
+	// @var {Number}
 	this.height = o.height;
-
+	// @var {Number}
 	this.width = o.width;
-
-	/* *
-	 * 
-	 * 0 - data is pushed to the program
-	 * 1 - program requests data
-	 *
-	 * */
-	//this.mode = o.mode;
-
-
+	// @var {Number}
 	this.updateint = o.updateint;
-
+	// @var {Number}
 	this.updatecounter = 0;
-
+	// @var {Boolean}
 	this.updategraph = false;
+	// @var {Number}
+	this.maxdatalength = this.width - 100;
 
 	if(undefined === o.data) {
 		this.data = [];
 	}else{
+		// make sure to CLONE the data and not reference it
 		let _d = JSON.stringify(o.data);
 		this.data = JSON.parse(_d);
 	}
 
-	this.maxdatalength = this.width - 100;
+	
 
-	// for get
+	/** 
+	 *
+	 * for get
+	 *
+	 */
 	if (undefined === o.getFunction) {
 		// throw error
 		console.log('Error: getFunction is a required parameter when in mode 0');
@@ -61,29 +61,11 @@ liveDataStream.prototype.loop = function() {
 		this.draw(this.data);
 	}
 }
-
-/**
- * 
- * @returns {Void}
+/** 
+ * comment
+ * @method add
  * */
-liveDataStream.prototype.init = function() {
-
-}
-/**
- * 
- * @deprecated true - might need this, but not right now
- * @returns {Void}
- * */
-liveDataStream.prototype.check = function() {
-	if(JSON.stringify(this.data) != JSON.stringify(this.newdata)) {
-		// data has changed ... go with new data
-		this.data = this.newdata;
-		this.updategraph = true;
-	}else{
-		this.updategraph = false;
-	}
-}
-liveDataStream.prototype.add = function(data,callback) {
+liveDataStream.prototype.add = function(data) {
 	this.data.push(data);
 	if(this.data.length > this.maxdatalength)
 		this.data.shift();
@@ -95,7 +77,7 @@ liveDataStream.prototype.add = function(data,callback) {
  * @returns {Void}
  * */
 liveDataStream.prototype.push = function(data) {
-	this.newdata = data;
+	this.add(data);
 }
 /**
  * gets data from an external location using a function defined by the user
@@ -135,12 +117,6 @@ liveDataStream.prototype.draw = function(data) {
 	}
 	// handle negative values
 	let _m = max;
-	/*
-	if(min < 0)
-		if(-min > max) 
-			_m = min;
-	_m = _m * 2;
-	*/
 	if(min < 0)
 		_m += -min;
 
@@ -163,7 +139,6 @@ liveDataStream.prototype.draw = function(data) {
 	}
 	// draw text to show values
 	$w.canvas.text(this.i,5,10,'max: '+max.toFixed(2),'fill','10px Arial','#000');
-	//$w.canvas.text(this.i,5,(this.height/3),(max/2).toFixed(2),'fill','10px Arial','#000');
 	$w.canvas.text(this.i,5,((this.height/3)*2),'min: '+min.toFixed(2),'fill','10px Arial','#000');
 	$w.canvas.text(this.i,5,this.height-10,'current: '+current.toFixed(2),'fill','10px Arial','#000');
 }

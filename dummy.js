@@ -108,3 +108,16 @@
                 }
             );   
         }
+        /** 
+         * comment
+         * @method setFakePushSPdata
+         * */
+        function setFakePushSPdata(i,max) {
+            
+            setInterval(function(){
+                if((Math.random() * 1000) > 300) {
+                    console.log('setFakePushSPdata : '+i);
+                    Graphs.setPushData(i,'PressureSpeedo',Math.random() * max);
+                }
+            },1000);
+        }

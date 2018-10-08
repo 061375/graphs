@@ -1,40 +1,48 @@
+/** 
+ * @class barGraphHorizontal
+ * @param {Object}
+ * */
 var barGraphHorizontal = function(o) {
-
+	// @var {Number} reference the canvas
 	this.i = o.i;
-
+	// @var {String}
 	this.text = o.text;
-
+	// @var {Number}
 	this.max = o.max;
-
+	// @var {Number}
 	this.values = o.values;
-
+	// @var {Array}
 	this.val = o.val;
-
+	// @var {Number}
 	this.width = o.width;
-
+	// @var {Number}
 	this.height = o.height;
-
+	// @var {Number}
 	this.z = o.z;
-
+	// @var {String}
 	this.color = o.color;
-
+	// @var {Number}
 	this.bheight = this.height / this.values;
-
+	// @var {Number}
 	this.x = 0;
-
+	// @var {Number}
 	this.y = this.bheight * this.z;
-
+	// @var {Number}
 	this.bwidth = this.val / this.max;
-
+	// @var {Number}
 	this.now = this.width;
-
+	// @var {Number}
 	this.updateint = o.updateint;
-
+	// @var {Number}
 	this.updatecounter = 0;
-
+	// @var {Number}
 	this.animspeed = 1;
 
-	// for get
+	/** 
+	 *
+	 * for get
+	 *
+	 */
 	if (undefined === o.getFunction) {
 		// throw error
 		console.log('Error: getFunction is a required parameter when in mode 0');

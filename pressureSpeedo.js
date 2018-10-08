@@ -6,6 +6,8 @@ var PressureSpeedo = function(o) {
 
 	this.i = o.i;
 
+	this.z = o.z;
+
 	this.width = o.width;
 
 	this.height = o.height;
@@ -30,20 +32,27 @@ var PressureSpeedo = function(o) {
 
 	this.measure = o.measure;
 
-	// for get
-	if (undefined === o.getFunction) {
-		// throw error
-		console.log('Error: getFunction is a required parameter when in mode 0');
-		return false;
-	}else{
-		this.getFunction = o.getFunction;
+	this.mode = 0;
+	if(o.mode !== undefined)
+		this.mode = o.mode;
+
+	if(0 == this.mode) {
+		// for get
+
+		if (undefined === o.getFunction) {
+			// throw error
+			console.log('Error: getFunction is a required parameter when in mode 0');
+			return false;
+		}else{
+			this.getFunction = o.getFunction;
+		}
+		if (undefined === o.getParams) {
+			this.getParams = {};
+		}else{
+			this.getParams = o.getParams;
+		}
+		this.getParams.maxp = this.maxp;
 	}
-	if (undefined === o.getParams) {
-		this.getParams = {};
-	}else{
-		this.getParams = o.getParams;
-	}
-	this.getParams.maxp = this.maxp;
 }
 /**
  * the loop

@@ -43,7 +43,7 @@
         <div id="linegraph" class="module"></div>
         <div id="piechart" class="module"></div>
         <div id="pspeedo" class="module"></div>
-        <div class="module"></div>
+        <div id="pspeedopush" class="module"></div>
 	</div>
 	<script src="js/wes.mantooth.js?v=3"></script>
 	<script src="graphs.js"></script>
@@ -251,9 +251,32 @@
                     maxp:500,
                     measure:'psi',
                     warning:[375,458],
-                    danger:[458,500]
+                    danger:[458,500],
+                    mode:0
                 }
             );
+
+             /** 
+
+                Pressure / Speedometer ( PUSH )
+
+            **
+            let ref = Graphs.pressureSpeedo(
+                document.getElementById('pspeedopush'),
+                'Pressure / Speedometer PUSH',{
+                    rspeed:0.5,
+                    divisor:12,
+                    shownumbers:true,
+                    maxp:500,
+                    measure:'psi',
+                    warning:[375,458],
+                    danger:[458,500],
+                    mode:1
+                }
+            );
+
+            setFakePushSPdata(ref,500);
+            */
     	}
 	</script>
 </body>
