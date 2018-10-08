@@ -1,6 +1,8 @@
 /** 
         FAKE TESTING DATA FOR THE STREAM GRAPHS
-        */
+
+        
+*/
         //@var {Number}
         var FOO = 0;
         /** 
