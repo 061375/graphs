@@ -149,21 +149,28 @@
             */
             Graphs.areaChart(
                 document.getElementById('linegraph'),
-                'My Test Area Chart',
-                [
-                    {
-                        text:'A',
-                        vals:[200,30,180,27,420]
+                'My Test Area Chart',{
+                    getFunction:getFakeAreaData, // a call to a function to retreive data
+                    getParams:{
+                        len:5,
+                        max:1000
                     },
-                    {
-                        text:'B',
-                        vals:[15,24,36,87,24]
-                    },
-                    {
-                        text:'C',
-                        vals:[158,24,1000,66,84]
-                    }
-                ]
+                    updateint:1000,            // how often to check for updates to the data in milliseconds
+                    data:[
+                        {
+                            text:'A',
+                            vals:[200,30,180,27,420]
+                        },
+                        {
+                            text:'B',
+                            vals:[15,24,36,87,24]
+                        },
+                        {
+                            text:'C',
+                            vals:[158,24,1000,66,84]
+                        }
+                    ]
+                }
             );
             /** 
 

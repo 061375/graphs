@@ -302,10 +302,10 @@ var Graphs = (function() {
 		let gheight = (height - (document.getElementById('acharttitle_'+n_ofgraphs).scrollHeight) - 10);
 
 		let max = 0;
-		for(let i=0; i<data.length; i++) {
-			for(let j=0; j<data[i].vals.length; j++) {
-				if(max < data[i].vals[j])
-					max = data[i].vals[j];
+		for(let i=0; i<data.data.length; i++) {
+			for(let j=0; j<data.data[i].vals.length; j++) {
+				if(max < data.data[i].vals[j])
+					max = data.data[i].vals[j];
 			}
 		}
 
@@ -316,13 +316,16 @@ var Graphs = (function() {
 		}
 		// @let {Number}
 		let j;
-		for(let i=0; i<data.length; i++) {
+		for(let i=0; i<data.data.length; i++) {
 			if(i==0) {
 				j = $w.add_object_single(
 					1,
 					AreaChart,{
-						text:data[i].text,
-						vals:data[i].vals,
+						getFunction:data.getFunction,
+						getParams:data.getParams,
+						updateint:data.updateint,
+						text:data.data[i].text,
+						vals:data.data[i].vals,
 						max:max,
 						width:width,
 						height:gheight,
@@ -336,8 +339,11 @@ var Graphs = (function() {
 				$w.add_object_single(
 					1,
 					AreaChart,{
-						text:data[i].text,
-						vals:data[i].vals,
+						getFunction:data.getFunction,
+						getParams:data.getParams,
+						updateint:data.updateint,
+						text:data.data[i].text,
+						vals:data.data[i].vals,
 						max:max,
 						width:width,
 						height:gheight,

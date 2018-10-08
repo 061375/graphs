@@ -41,7 +41,7 @@
          * comment
          * @method getFakeData
          * */
-        function getFakeData2(params,callback) {
+        function getFakeData2(params) {
             return new Promise(
                 function (resolve, reject) {
                     let c = 0;
@@ -68,4 +68,19 @@
                     resolve(c);
                 }
             );
+        }
+        /** 
+         * comment
+         * @method getFakeAreaData
+         * */
+        function getFakeAreaData(params) {
+            return new Promise(
+                function (resolve, reject) {
+                    let data = [];
+                    for(let i=0; i<params.len; i++) {
+                        data.push(Math.random() * params.max);
+                    }
+                    resolve(data);
+                }
+            );  
         }

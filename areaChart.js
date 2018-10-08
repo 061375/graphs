@@ -3,8 +3,9 @@
  * @param {Object}
  * */
 var AreaChart = function(o) {
-
 	this.i = o.i;
+
+	this.z = o.z;
 
 	this.width = o.width;
 
@@ -16,7 +17,29 @@ var AreaChart = function(o) {
 
 	this.data = o.vals;
 
-	this.now = this.height;
+	this.updateint = o.updateint;
+
+	this.updatecounter = 0;
+
+	this.animspeed = 1;
+
+	this.now = [];
+	for(let i=0; i<this.data.length; i++)
+		this.now[i] = this.height;
+
+	// for get
+	if (undefined === o.getFunction) {
+		// throw error
+		console.log('Error: getFunction is a required parameter when in mode 0');
+		return false;
+	}else{
+		this.getFunction = o.getFunction;
+	}
+	if (undefined === o.getParams) {
+		this.getParams = {};
+	}else{
+		this.getParams = o.getParams;
+	}
 
 	// uncomment to draw without animation
 	//this.draw(this.makedata(this.data,false));
@@ -27,12 +50,36 @@ var AreaChart = function(o) {
  * @returns {Void}
  * */
 AreaChart.prototype.loop = function() {
-	if(this.now > 0){
+	
+	this.updatecounter++;
+	if(this.updatecounter >= this.updateint) {
+		this.updatecounter = 0;
+		this.get(this.getFunction,this.getParams);
+	}else{
 		this.makedata(this.data,true);
-		this.now-=15;
+		this.draw(this.drawdata);
 	}
-
-	this.draw(this.drawdata);
+}
+/** 
+ * comment
+ * @method 
+ * */
+AreaChart.prototype.push = function(data) {
+	this.data = data;
+}
+/**
+ * gets data from an external location using a function defined by the user
+ * @param {Function}
+ * @param {Object}
+ * @returns {Void}
+ * */
+AreaChart.prototype.get = function(getFunction,params) {
+	if(typeof getFunction === 'function') {
+		var p = getFunction(params);
+		p.then((data) => {
+			this.data = data;
+		});
+	}
 }
 /**
  * build the  array to pass to the draw method
@@ -53,13 +100,25 @@ AreaChart.prototype.makedata = function(data,animate) {
 
 	this.drawdata = [[j,this.height]];
 	
-	for (let i=0; i<this.data.length; i++) {
+	//console.log(this.now[0],(this.height-(data[0]/this.max)),data[0]);
+	for (let i=0; i<data.length; i++) {
 		if(animate) {
+			/*
 			if(this.now > (this.height-(data[i]/this.max))) {
 				da = [j,this.now];
 			}else{
 				da = [j,(this.height-(data[i]/this.max))];
 			}
+			*/
+			if((this.now[i]+this.animspeed) > (this.height-(data[i]/this.max))) {
+				this.now[i]-=this.animspeed;
+			}
+			if((this.now[i]-this.animspeed) < (this.height-(data[i]/this.max))) {
+				this.now[i]+=this.animspeed;
+			}
+			da = [j,this.now[i]];
+			//if(this.z==0 && i==1)
+				//console.log(this.now[i],(this.height-(data[i]/this.max)),data[i],da);
 		}else{
 			da = [j,(this.height-(data[i]/this.max))];
 		}
@@ -75,9 +134,11 @@ AreaChart.prototype.makedata = function(data,animate) {
  * @returns {Void}
  * */
 AreaChart.prototype.draw = function(data) {	
+	//if(this.z==0)
+		//console.log(data);
 	$w.canvas.polygon(this.i,data,this.color,'fill',this.color,0.1);
 	// draw the stroke a few times to make it show up real nice
 	$w.canvas.polygon(this.i,data,'#000','stroke','#000',1);
 	$w.canvas.polygon(this.i,data,'#000','stroke','#000',1);
 	$w.canvas.polygon(this.i,data,'#000','stroke','#000',1);
-}
+}	
