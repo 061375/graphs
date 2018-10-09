@@ -37,6 +37,21 @@
                 }
             );
         }
+        /** 
+         * comment
+         * @method setFakePush
+         * */
+        function setFakePush(refs) {
+            setInterval(function(){
+                for (let i=0; i<refs.length; i++) {
+                    var p = getFakeData({});
+                    p.then((data) => {
+                        Graphs.setPushData(refs[i],'horizBarGraph',data);   
+                    });
+                }
+            },1500);
+        }
+
          //@var {Number}
         var BAR = 0;
         /** 
@@ -112,12 +127,26 @@
          * comment
          * @method setFakePushSPdata
          * */
-        function setFakePushSPdata(i,max) {
+        function setFakePushSPdata(ref,max) {
             
             setInterval(function(){
                 if((Math.random() * 1000) > 300) {
-                    console.log('setFakePushSPdata : '+i);
-                    Graphs.setPushData(i,'PressureSpeedo',Math.random() * max);
+                    Graphs.setPushData(ref[0],'pressureSpeedo',Math.random() * max);
                 }
             },1000);
+        }
+         /** 
+         * comment
+         * @method setFakePushPie
+         * */
+        function setFakePushPie(refs) {
+            setInterval(function(){
+                for (let i=0; i<refs.length; i++) {
+                    let data = [];
+                    for(let j=0; j<3; j++) {
+                        data.push(Math.floor(Math.random() * 200));
+                    }
+                    Graphs.setPushData(refs[i],'pieChart',data);
+                }
+            },5000);
         }

@@ -60,6 +60,8 @@
     
     		'use strict';
 
+            var ref;
+
     		// Initialize the graph tool with width and height
             Graphs.init(400,400);
 
@@ -68,6 +70,7 @@
                 Horizontal Bar Graph
 
             */
+            /*
     		Graphs.horizBarGraph(
     			document.getElementById('bargraph'),
     			'My Test Bar Graph',{
@@ -109,7 +112,48 @@
             				}
             			]
                     }
-    		);
+    		);*/
+            ref = Graphs.horizBarGraph(
+                document.getElementById('bargraph'),
+                'My Test Bar Graph',{
+                    mode:1,
+                    data:[
+                        {
+                            text:'A',
+                            val:400
+                        },
+                        {
+                            text:'B',
+                            val:700
+                        },
+                        {
+                            text:'C',
+                            val:1300
+                        },
+                        {
+                            text:'D',
+                            val:2500
+                        },
+                        {
+                            text:'E',
+                            val:225
+                        },
+                        {
+                            text:'F',
+                            val:225
+                        },
+                        {
+                            text:'G',
+                            val:876
+                        },
+                        {
+                            text:'H',
+                            val:1100
+                        }
+                    ]
+                }
+            );
+            setFakePush(ref,1000);
             /** 
 
                 Vertical Bar Graph
@@ -225,13 +269,15 @@
                 Pie Chart
 
             **/
-            Graphs.pieChart(
+            ref = Graphs.pieChart(
                 document.getElementById('piechart'),
                 'Pie Chart',{
                     // seed data
                     data:[200, 60, 15]
                 }
             );
+
+            setFakePushPie(ref);
 
             /** 
 
@@ -260,10 +306,11 @@
 
                 Pressure / Speedometer ( PUSH )
 
-            **
-            let ref = Graphs.pressureSpeedo(
+             **/
+
+            ref = Graphs.pressureSpeedo(
                 document.getElementById('pspeedopush'),
-                'Pressure / Speedometer PUSH',{
+                'Pressure / Speedometer (PUSH)',{
                     rspeed:0.5,
                     divisor:12,
                     shownumbers:true,
@@ -276,7 +323,8 @@
             );
 
             setFakePushSPdata(ref,500);
-            */
+            
+            console.log($w.objects);
     	}
 	</script>
 </body>

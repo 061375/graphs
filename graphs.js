@@ -78,6 +78,7 @@ var Graphs = (function() {
 						updateint:data.updateint,
 						getFunction:data.getFunction,
 						getParams:data.getParams,
+						mode:data.mode
 					},
 					$t,
 					width,
@@ -97,6 +98,7 @@ var Graphs = (function() {
 						updateint:data.updateint,
 						getFunction:data.getFunction,
 						getParams:data.getParams,
+						mode:data.mode
 					},
 					j,
 					width,
@@ -105,6 +107,8 @@ var Graphs = (function() {
 			}
 		}
 		$w.loop(true,j);
+
+		return getZvalues(j,'barGraphHorizontal');
 	}
 	/** 
 	 * comment
@@ -394,8 +398,10 @@ var Graphs = (function() {
 			width,
 			gheight
 		);
-		//$w.loop(true,j);
+		
+		$w.loop(true,j);
 
+		return getZvalues(j,'PieChart');
 	}
 	/** 
 	 * comment
@@ -444,21 +450,79 @@ var Graphs = (function() {
 		);
 		$w.loop(true,j);
 
-		return j;
+		return getZvalues(j,'PressureSpeedo');
 	}
+
+
+
+
+	// ----- GETTERS
+
+
+
+	/** 
+	 * comment
+	 * @method getZvalues
+	 * */
+	var getZvalues = function(i,method) {
+		let zs = [];
+		//  if the requested object exists
+		if(undefined !== $w.objects[method]) {
+			for(let obj in $w.objects[method]) {
+				if($w.objects[method].hasOwnProperty(obj)) {
+					if($w.objects[method][obj].i == i) {
+						zs.push(obj);
+					}
+				}
+			}
+		}
+
+		return zs;
+	}
+
+
+
+	// ----- SETTERS
+
+
+
 	/** 
 	 * comment
 	 * @method setPushData
 	 * */
 	var setPushData = function(ref,method,data) {
+
 		switch(method) {
 			case 'pressureSpeedo':
 				method = 'PressureSpeedo';
 			break;
+			case 'areaChart':
+				method = 'AreaChart';
+			break;
+			case 'livDataStream':
+				method = 'liveDataStream';
+			break;
+			case 'posLiveDataStream':
+				method = 'positiveLiveDataStream';
+			break;
+			case 'verticalBarGraph':
+				method = 'barGraphVertical';
+			break;
+			case 'horizBarGraph':
+				method = 'barGraphHorizontal';
+			break;
+			case 'pieChart':
+				method = 'PieChart';
+			break;
 		}
+
+		//  if the requested object exists
 		if(undefined !== $w.objects[method]) {
+			// loop the objects and find one that matc hes the reference ID
+			// unfortunately WMT pushes objects to the object array using numerical keys but essentially the key is a string
+			// otherwise I could reference it correctly, so we have to loop
+			// But it's unlekely that there will be more than a few to loop
 			for(let obj in $w.objects[method]) {
-				console.log($w.objects[method][obj],ref);
 				if($w.objects[method].hasOwnProperty(obj)) {
 					if($w.objects[method][obj].z == ref) {
 						$w.objects[method][obj].push(data);
@@ -479,7 +543,8 @@ var Graphs = (function() {
 		areaChart:areaChart,
 		pieChart:pieChart,
 		pressureSpeedo:pressureSpeedo,
-		setPushData:setPushData
+		setPushData:setPushData,
+		getZvalues:getZvalues
 	}
 
 })();

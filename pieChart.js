@@ -6,6 +6,8 @@ var PieChart = function(o) {
 
 	this.i = o.i;
 
+	this.z = o.z;
+
 	this.width = o.width;
 
 	this.height = o.height;
@@ -26,14 +28,15 @@ var PieChart = function(o) {
  * @returns {Void}
  * */
 PieChart.prototype.loop = function() {
-	/*
-	if(this.now > 0){
-		this.makedata(this.data,true);
-		this.now-=15;
-	}
-
-	this.draw(this.drawdata);
-	*/
+	this.total = this.gettotal(this.data);
+	this.draw(this.data);
+}
+/**
+ * 
+ * @returns {Void}
+ * */
+PieChart.prototype.push = function(data) {
+	this.data = data;
 }
 /**
  * build the  array to pass to the draw method

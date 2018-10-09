@@ -37,23 +37,30 @@ var barGraphHorizontal = function(o) {
 	this.updatecounter = 0;
 	// @var {Number}
 	this.animspeed = 1;
+	
 
-	/** 
-	 *
-	 * for get
-	 *
-	 */
-	if (undefined === o.getFunction) {
-		// throw error
-		console.log('Error: getFunction is a required parameter when in mode 0');
-		return false;
-	}else{
-		this.getFunction = o.getFunction;
-	}
-	if (undefined === o.getParams) {
-		this.getParams = {};
-	}else{
-		this.getParams = o.getParams;
+	this.mode = 0;
+	if(o.mode !== undefined)
+		this.mode = o.mode;
+
+	if(0 == this.mode) {
+		/** 
+		 *
+		 * for get
+		 *
+		 */
+		if (undefined === o.getFunction) {
+			// throw error
+			console.log('Error: getFunction is a required parameter when in mode 0');
+			return false;
+		}else{
+			this.getFunction = o.getFunction;
+		}
+		if (undefined === o.getParams) {
+			this.getParams = {};
+		}else{
+			this.getParams = o.getParams;
+		}
 	}
 }
 /**
@@ -88,6 +95,15 @@ barGraphHorizontal.prototype.get = function(getFunction,params) {
 			this.bwidth = this.val / this.max;
 		});
 	}
+}
+/**
+ * @param {Object}
+ * @returns {Void}
+ * */
+barGraphHorizontal.prototype.push = function(data) {
+	this.val = data.toFixed(2);
+	this.bwidth = this.val;
+	this.bwidth = this.val / this.max;
 }
 /**
  * the loop
