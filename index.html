@@ -5,7 +5,7 @@
 			font-family: Arial;
 			background: #0a0a4c;
 		}
-		.module {
+		.gmodule {
 			width: 400px;
 			height: 400px;
 			margin: 10px;
@@ -16,7 +16,6 @@
 			box-shadow: 0px 1px 5px #00000036;
 			background: aliceblue;
             box-shadow: inset 0px -30px 70px rgba(199, 196, 232, 0.38823529411764707);
-            position: relative;
 		}
 		h2 {
 			text-align: center;
@@ -30,30 +29,35 @@
 		}
         canvas {
             margin-top: 5px;
-            position: absolute;
         }
 	</style>
+    <link rel="stylesheet" href="bin/css/style.css">
 </head>
 <body>
 	<div>
-		<div id="bargraph" class="module"></div>
-		<div id="vbargraph" class="module"></div>
-        <div id="datasgraph" class="module"></div>
-        <div id="dataltsgraph" class="module"></div>
-        <div id="linegraph" class="module"></div>
-        <div id="piechart" class="module"></div>
-        <div id="pspeedo" class="module"></div>
-        <div id="pspeedopush" class="module"></div>
+		<div id="bargraph" class="gmodule"></div>
+		<div id="vbargraph" class="gmodule"></div>
+        <div id="datasgraph" class="gmodule"></div>
+        <div id="dataltsgraph" class="gmodule"></div>
+        <div id="linegraph" class="gmodule"></div>
+        <div id="piechart" class="gmodule"></div>
+        <div id="pspeedo" class="gmodule"></div>
+        <div id="pspeedopush" class="gmodule"></div>
 	</div>
 	<script src="js/wes.mantooth.js?v=3"></script>
-	<script src="graphs.js"></script>
-	<script src="barGraphHorizontal.js"></script>
-	<script src="barGraphVertical.js"></script>
-    <script src="positiveLiveDataStream.js"></script>
-    <script src="liveDataStream.js"></script>
-    <script src="areaChart.js"></script>
-    <script src="pieChart.js"></script>
-    <script src="pressureSpeedo.js"></script>
+    <!-- uncomment for development -->
+    <!--
+	<script src="bin/working/js/graphs.js"></script>
+	<script src="bin/working/js/barGraphHorizontal.js"></script>
+	<script src="bin/working/js/barGraphVertical.js"></script>
+    <script src="bin/working/js/positiveLiveDataStream.js"></script>
+    <script src="bin/working/js/liveDataStream.js"></script>
+    <script src="bin/working/js/areaChart.js"></script>
+    <script src="bin/working/js/pieChart.js"></script>
+    <script src="bin/working/js/pressureSpeedo.js"></script>
+    -->
+    <!-- uncomment for live -->
+    <script src="bin/js/wes.graphs.js"></script>
     <script src="dummy.js"></script>
 	<script>
 		window.onload = function() {
@@ -70,7 +74,7 @@
                 Horizontal Bar Graph
 
             */
-            /*
+            
     		Graphs.horizBarGraph(
     			document.getElementById('bargraph'),
     			'My Test Bar Graph',{
@@ -112,7 +116,7 @@
             				}
             			]
                     }
-    		);*/
+    		);/*
             ref = Graphs.horizBarGraph(
                 document.getElementById('bargraph'),
                 'My Test Bar Graph',{
@@ -152,8 +156,8 @@
                         }
                     ]
                 }
-            );
-            setFakePush(ref,1000);
+            );*/
+            //setFakePush(ref,1000);
             /** 
 
                 Vertical Bar Graph
@@ -323,8 +327,6 @@
             );
 
             setFakePushSPdata(ref,500);
-            
-            console.log($w.objects);
     	}
 	</script>
 </body>
