@@ -46,7 +46,7 @@
 	</div>
 	<script src="js/wes.mantooth.js?v=3"></script>
     <!-- uncomment for development -->
-    <!--
+    
 	<script src="bin/working/js/graphs.js"></script>
 	<script src="bin/working/js/barGraphHorizontal.js"></script>
 	<script src="bin/working/js/barGraphVertical.js"></script>
@@ -55,9 +55,12 @@
     <script src="bin/working/js/areaChart.js"></script>
     <script src="bin/working/js/pieChart.js"></script>
     <script src="bin/working/js/pressureSpeedo.js"></script>
-    -->
+    
     <!-- uncomment for live -->
-    <script src="bin/js/wes.graphs.js"></script>
+    <!--script src="bin/js/wes.graphs.js"></script-->
+
+
+
     <script src="dummy.js"></script>
 	<script>
 		window.onload = function() {
@@ -296,13 +299,17 @@
                     getParams:{},
                     updateint:500,
                     rspeed:0.5,
-                    divisor:12,
-                    shownumbers:true,
+                    divisor:100,
+                    shownumbers:false,
                     maxp:500,
                     measure:'psi',
                     warning:[375,458],
                     danger:[458,500],
-                    mode:0
+                    mode:0,
+                    ringgauge:false,
+                    glinesize:20,
+                    gbackground:'#6d63e4',
+                    glinecolor:'#cccccc'
                 }
             );
 
@@ -322,7 +329,10 @@
                     measure:'psi',
                     warning:[375,458],
                     danger:[458,500],
-                    mode:1
+                    mode:1,
+                    mpos:{x:20,y:20},
+                    mcolor:'#000000',
+                    msize:'10px'
                 }
             );
 

@@ -32,6 +32,30 @@ var PressureSpeedo = function(o) {
 
 	this.measure = o.measure;
 
+	if(undefined === o.size) {
+		this.size = (this.width/2)-20;
+	}else{
+		this.size = o.size;
+	}
+	if(undefined === o.mpos) {
+		this.mpos = {
+			x:(this.width/2)-60,
+			y:((this.height/3)*2)
+		}
+	}else{
+		this.mpos = o.mpos;
+	}
+	if(undefined === o.mcolor) {
+		this.mcolor = '#ffffff';
+	}else{
+		this.mcolor = o.mcolor;
+	}
+	if(undefined === o.msize) {
+		this.msize = '30px';
+	}else{
+		this.msize = o.msize;
+	}
+
 	this.mode = 0;
 	if(o.mode !== undefined)
 		this.mode = o.mode;
@@ -130,7 +154,7 @@ PressureSpeedo.prototype.trig = function(x,y,d,r) {
  * @returns {Void}
  * */
 PressureSpeedo.prototype.drawmeasure = function() {
-	$w.canvas.text(this.i,20,20,(this.real.toFixed(2))+' '+this.measure,'fill','10px Arial');
+	$w.canvas.text(this.i,this.mpos.x,this.mpos.y,(this.real.toFixed(2))+' '+this.measure,'fill',this.msize+' Arial',this.mcolor);
 }
 /**
  * @param {Array}
@@ -140,7 +164,7 @@ PressureSpeedo.prototype.drawneedle = function() {
 	$w.canvas.circle(this.i,this.hwidth,this.hheight,10);
 	let xy1 = this.trig(this.hwidth,this.hheight,this.pspeed-90,10);
 	let xy2 = this.trig(this.hwidth,this.hheight,this.pspeed+90,10);
-	let xy3 = this.trig(this.hwidth,this.hheight,this.pspeed,(this.width/3)-30);
+	let xy3 = this.trig(this.hwidth,this.hheight,this.pspeed,this.size-30);
 	
 	$w.canvas.polygon(this.i,[
 		[xy1.x,xy1.y],
@@ -178,15 +202,50 @@ var PressureSpeedoGauge = function(o) {
 
 	this.danger = o.danger;
 
+	if(undefined === o.gcolor) {
+		this.gcolor = '#000000';
+	}else{
+		this.gcolor = o.gcolor;
+	}
 	if(undefined === o.divisor) {
 		this.divisor = 12;
 	}else{
 		this.divisor = o.divisor;
 	}
+	if(undefined === o.glinesize) {
+		this.glinesize = 10;
+	}else{
+		this.glinesize = o.glinesize;
+	}
+	if(undefined === o.glineweight) {
+		this.glineweight = 1;
+	}else{
+		this.glineweight = o.glineweight;
+	}
+	if(undefined === o.glinecolor) {
+		this.glinecolor = '#000000';
+	}else{
+		this.glinecolor = o.glinecolor;
+	}
 	if(undefined === o.shownumbers) {
 		this.shownumbers = false;
 	}else{
 		this.shownumbers = o.shownumbers;
+	}
+	if(undefined === o.ringgauge) {
+		this.ringgauge = true;
+	}else{
+		this.ringgauge = o.ringgauge;
+	}
+	if(undefined === o.gbackground) {
+		this.gbackground = false;
+	}else{
+		this.gbackground = o.gbackground;
+	}
+	if(undefined === o.size) {
+		this.size = (this.height/2)-20;
+	}else{
+		this.size = o.size;
 	}
 
 	this.gaugeinc = this.maxp / this.divisor;
@@ -213,7 +272,7 @@ PressureSpeedoGauge.prototype.vtodegs = function(v) {
 PressureSpeedoGauge.prototype.makewarning = function() {
 	s = this.vtodegs(this.warning[0]);
 	e = this.vtodegs(this.warning[1]);
-	$w.canvas.arc(this.i,this.hwidth,this.hheight,((this.width/3)),$w.math.radians(s),$w.math.radians(e),false,'#ffff00','fill');
+	$w.canvas.arc(this.i,this.hwidth,this.hheight,this.size-this.glinesize,$w.math.radians(s),$w.math.radians(e),false,'#ffff00','fill');
 }
 /**
  * @param {Array}
@@ -222,7 +281,7 @@ PressureSpeedoGauge.prototype.makewarning = function() {
 PressureSpeedoGauge.prototype.makedanger = function(s,e) {
 	s = this.vtodegs(this.danger[0]);
 	e = this.vtodegs(this.danger[1]);
-	$w.canvas.arc(this.i,this.hwidth,this.hheight,((this.width/3)),$w.math.radians(s),$w.math.radians(e),false,'#ff0000','fill');
+	$w.canvas.arc(this.i,this.hwidth,this.hheight,this.size-this.glinesize,$w.math.radians(s),$w.math.radians(e),false,'#ff0000','fill');
 }
 /**
  * build the  array to pass to the draw method
@@ -248,20 +307,23 @@ PressureSpeedoGauge.prototype.trig = function(x,y,d,r) {
  * @returns {Void}
  * */
 PressureSpeedoGauge.prototype.drawgauge = function() {	
-	this.makewarning();
-	this.makedanger();
-	let r = (this.width/3);
 	let ii = 0;
 	// draw circle
-	$w.canvas.circle(this.i,this.hwidth,this.hheight,r,'#ffffff',1,'fill');
-	$w.canvas.circle(this.i,this.hwidth,this.hheight,r,'#000000',1,'stroke');
+	if(this.gbackground != false) 
+		$w.canvas.circle(this.i,this.hwidth,this.hheight,this.size,this.gbackground);
+	if(this.ringgauge)
+			$w.canvas.circle(this.i,this.hwidth,this.hheight,this.size,'#000000',1,'stroke');
+
+	this.makewarning();
+	this.makedanger();
+	
 	// draw individual 
 	for(let i=0; i<360; (i+=360/this.divisor)) {
-		let xy1 = this.trig(this.hwidth,this.hheight,i,r);
-		let xy2 = this.trig(this.hwidth,this.hheight,i,r-10);
-		$w.canvas.line(this.i,xy1.x,xy1.y,xy2.x,xy2.y,'#000000',3);
+		let xy1 = this.trig(this.hwidth,this.hheight,i,this.size);
+		let xy2 = this.trig(this.hwidth,this.hheight,i,this.size-this.glinesize);
+		$w.canvas.line(this.i,xy1.x,xy1.y,xy2.x,xy2.y,this.glinecolor,this.glineweight);
 		if(this.shownumbers) {
-			let xy3 = this.trig(this.hwidth-10,this.hheight,i,r+20);
+			let xy3 = this.trig(this.hwidth-10,this.hheight,i,this.size+20);
 			$w.canvas.text(this.i,xy3.x,xy3.y,Math.floor(ii),'fill','10px Arial');
 			ii+=this.gaugeinc;
 		}

@@ -424,7 +424,12 @@ var Graphs = (function() {
 				shownumbers:data.shownumbers,
 				maxp:data.maxp,
 				warning:data.warning,
-				danger:data.danger
+				danger:data.danger,
+				ringgauge:data.ringgauge,
+				glinesize:data.glinesize,
+				gbackground:data.gbackground,
+				glinecolor:data.glinecolor,
+				size:data.size
 			},
 			$t,
 			width,
@@ -442,7 +447,11 @@ var Graphs = (function() {
 				maxp:data.maxp,
 				measure:data.measure,
 				data:0,
-				mode:data.mode
+				mode:data.mode,
+				size:data.size,
+				mpos:data.mpos,
+				mcolor:data.mcolor,
+				msize:data.msize
 			},
 			$t,
 			width,
