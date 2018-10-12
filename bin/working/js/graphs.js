@@ -264,6 +264,19 @@ var Graphs = (function() {
 				updateint:data.updateint,
 				width:width,
 				height:gheight,
+				linecolor:data.linecolor,
+				textcolor:data.textcolor,
+				xmin:data.xmin,
+				mode:data.mode,
+				xmin:data.xmin,
+				xmax:data.xmax,
+				currentx:data.currentx,
+				currenty:data.currenty,
+				measure:data.measure,
+				bcurrent:data.bcurrent,
+				bcurrenttitle:data.bcurrenttitle,
+				bmax:data.bmax,
+				bmaxtitle:data.bmaxtitle,
 				data:data.data
 			},
 			$t,
@@ -272,6 +285,7 @@ var Graphs = (function() {
 		);
 		$w.loop(true,j);
 
+		return getZvalues(j,'posLiveDataStream');
 	}
 	/** 
 	 * comment
@@ -433,7 +447,7 @@ var Graphs = (function() {
 			},
 			$t,
 			width,
-			gheight
+			gheight 
 		);
 		let j = $w.add_object_single(
 			1,
@@ -451,7 +465,8 @@ var Graphs = (function() {
 				size:data.size,
 				mpos:data.mpos,
 				mcolor:data.mcolor,
-				msize:data.msize
+				msize:data.msize,
+				animate:data.animate
 			},
 			$t,
 			width,
@@ -460,7 +475,7 @@ var Graphs = (function() {
 		$w.loop(true,j);
 
 		return getZvalues(j,'PressureSpeedo');
-	}
+	} 
 
 
 
@@ -475,6 +490,29 @@ var Graphs = (function() {
 	 * */
 	var getZvalues = function(i,method) {
 		let zs = [];
+		switch(method) {
+			case 'pressureSpeedo':
+				method = 'PressureSpeedo';
+			break;
+			case 'areaChart':
+				method = 'AreaChart';
+			break;
+			case 'livDataStream':
+				method = 'liveDataStream';
+			break;
+			case 'posLiveDataStream':
+				method = 'positiveLiveDataStream';
+			break;
+			case 'verticalBarGraph':
+				method = 'barGraphVertical';
+			break;
+			case 'horizBarGraph':
+				method = 'barGraphHorizontal';
+			break;
+			case 'pieChart':
+				method = 'PieChart';
+			break;
+		}
 		//  if the requested object exists
 		if(undefined !== $w.objects[method]) {
 			for(let obj in $w.objects[method]) {
@@ -499,7 +537,7 @@ var Graphs = (function() {
 	 * comment
 	 * @method setPushData
 	 * */
-	var setPushData = function(ref,method,data) {
+	var setPushData = function(ref,method,data) { 
 
 		switch(method) {
 			case 'pressureSpeedo':

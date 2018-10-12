@@ -16,8 +16,6 @@ var PressureSpeedo = function(o) {
 
 	this.hheight = this.height / 2;
 
-	this.maxp = o.maxp;
-
 	this.pspeed = 0;
 
 	this.rspeed = o.rspeed;
@@ -30,8 +28,16 @@ var PressureSpeedo = function(o) {
 
 	this.updatecounter = 0;
 
-	this.measure = o.measure;
-
+	if(undefined === o.maxp) {
+		this.maxp = 500;
+	}else{
+		this.maxp = o.maxp;
+	}
+	if(undefined === o.measure) {
+		this.measure = 'psi'; 
+	}else{
+		this.measure = o.measure;
+	}
 	if(undefined === o.size) {
 		this.size = (this.width/2)-20;
 	}else{
@@ -55,7 +61,12 @@ var PressureSpeedo = function(o) {
 	}else{
 		this.msize = o.msize;
 	}
-
+	if(undefined === o.animate) {
+		this.animate = true;
+	}else{
+		this.animate = o.animate;
+	}
+ 
 	this.mode = 0;
 	if(o.mode !== undefined)
 		this.mode = o.mode;
@@ -88,11 +99,14 @@ PressureSpeedo.prototype.loop = function() {
 		this.updatecounter = 0;
 		this.get(this.getFunction,this.getParams);
 	}else{
-		if((this.pspeed+this.rspeed) > this.tpspeed)
-			this.pspeed-=this.rspeed;
-		if((this.pspeed-this.rspeed) < this.tpspeed)
-			this.pspeed+=this.rspeed;
-		
+		if(this.animate) {
+			if((this.pspeed+this.rspeed) > this.tpspeed)
+				this.pspeed-=this.rspeed;
+			if((this.pspeed-this.rspeed) < this.tpspeed)
+				this.pspeed+=this.rspeed;
+		}else{
+			this.pspeed = this.tpspeed;
+		}
 	}
 	this.draw();
 }
@@ -186,6 +200,7 @@ PressureSpeedo.prototype.draw = function(data) {
  * @param {Object}
  * */
 var PressureSpeedoGauge = function(o) {
+	
 	this.i = o.i;
 
 	this.width = o.width;
@@ -196,12 +211,21 @@ var PressureSpeedoGauge = function(o) {
 
 	this.hheight = this.height / 2;
 
-	this.maxp = o.maxp;
-
-	this.warning = o.warning;
-
-	this.danger = o.danger;
-
+	if(undefined === o.maxp) {
+		this.maxp = 500;
+	}else{
+		this.maxp = o.maxp;
+	} 
+	if(undefined === o.warning) {
+		this.warning = [375,458];
+	}else{
+		this.warning = o.warning;
+	}
+	if(undefined === o.danger) {
+		this.danger = [458,500];
+	}else{
+		this.danger = o.danger;
+	}
 	if(undefined === o.gcolor) {
 		this.gcolor = '#000000';
 	}else{

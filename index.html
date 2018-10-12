@@ -244,18 +244,24 @@
             **/
             // make some fake seed data to start
             var _data = [];
-            for(let i=0; i<350; i++)
+            for(let i=0; i<400; i++)
                 _data.push(Math.random() * 400);
 
-            Graphs.posLiveDataStream(
+            ref = Graphs.posLiveDataStream(
                 document.getElementById('datasgraph'),
                 'My Test Data Stream',{
                     getFunction:getFakeData, // a call to a function to retreive data (fake functions located in dummy.js )
                     getParams:{},
-                    updateint:30,            // how often to check for updates to the data in milliseconds
+                    updateint:200,            // how often to check for updates to the data in milliseconds
+                    mode:0,
+                    linecolor:'#000000',
+                    textcolor:'#000000',
+                    bmax:true,
+                    bmaxtitle:true,
                     data:_data               // use this to seed initial data if avaiable 
                 }
             );
+
             // make some fake seed data to start
             _data = [];
             for(let i=0; i<350; i++)
@@ -266,7 +272,9 @@
                 'Live Data Stream ( + / - )',{
                     getFunction:getFakeData2, // a call to a function to retreive data (fake functions located in dummy.js )
                     getParams:{},
-                    updateint:30,            // how often to check for updates to the data in milliseconds
+                    updateint:200,            // how often to check for updates to the data in milliseconds
+                    linecolor:'#000000',
+                    textcolor:'#000000',
                     data:_data               // use this to seed initial data if avaiable 
                 }
             );
@@ -309,7 +317,8 @@
                     ringgauge:false,
                     glinesize:20,
                     gbackground:'#6d63e4',
-                    glinecolor:'#cccccc'
+                    glinecolor:'#cccccc',
+                    animate:true
                 }
             );
 
@@ -332,11 +341,14 @@
                     mode:1,
                     mpos:{x:20,y:20},
                     mcolor:'#000000',
-                    msize:'10px'
+                    msize:'10px',
+                    animate:true
                 }
             );
-
+ 
             setFakePushSPdata(ref,500);
+
+            //console.log($w.objects);
     	}
 	</script>
 </body>
