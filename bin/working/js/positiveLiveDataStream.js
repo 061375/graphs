@@ -149,11 +149,17 @@ positiveLiveDataStream.prototype.loop = function() {
 		}else{
 			if(!this.noclear) {
 				this.draw(this.data);
+			}else{
+				$w.addNoClear(this.i);
+				this.noclear = true;
 			}
 		}
 	}else{
 		if(!this.noclear) {
 			this.draw(this.data);
+		}else{
+			$w.addNoClear(this.i);
+			this.noclear = true;
 		}
 	}
 } 
@@ -175,7 +181,7 @@ positiveLiveDataStream.prototype.add = function(data) {
  * */
 positiveLiveDataStream.prototype.push = function(data) {
 	this.noclear = false;
-	$w.removeRequestNoClear(this.i);
+	$w.requestRemoveNoClear(this.i);
 	this.add(data);
 }
 /**
@@ -189,7 +195,7 @@ positiveLiveDataStream.prototype.get = function(getFunction,params) {
 		var p = getFunction(params);
 		p.then((data) => {
 			this.noclear = false;
-			$w.removeRequestNoClear(this.i);
+			$w.requestRemoveNoClear(this.i);
 			this.add(data);
 		});
 	}
@@ -243,9 +249,6 @@ positiveLiveDataStream.prototype.draw = function(data) {
 			current = 'current: '+current;
 		$w.canvas.text(this.i,this.currentx,this.currenty,current+' '+this.measure,'fill',this.msize+' Arial',this.textcolor);
 	}
-
-	$w.requestNoClear(this.i);
-	this.noclear = true;
 }
 
 

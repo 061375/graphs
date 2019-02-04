@@ -108,7 +108,7 @@ var Graphs = (function() {
 		}
 		$w.loop(true,j);
 
-		return getZvalues(j,'barGraphHorizontal');
+		return getZvalues(j,'barGraphHorizontal',$t);
 	}
 	/** 
 	 * comment
@@ -285,7 +285,7 @@ var Graphs = (function() {
 		);
 		$w.loop(true,j);
 
-		return getZvalues(j,'posLiveDataStream');
+		return getZvalues(j,'posLiveDataStream',$t);
 	}
 	/** 
 	 * comment
@@ -415,7 +415,7 @@ var Graphs = (function() {
 		
 		$w.loop(true,j);
 
-		return getZvalues(j,'PieChart');
+		return getZvalues(j,'PieChart',$t);
 	}
 	/** 
 	 * comment
@@ -474,7 +474,7 @@ var Graphs = (function() {
 		);
 		$w.loop(true,j);
 
-		return getZvalues(j,'PressureSpeedo');
+		return getZvalues(j,'PressureSpeedo',$t);
 	} 
 
 
@@ -488,7 +488,7 @@ var Graphs = (function() {
 	 * comment
 	 * @method getZvalues
 	 * */
-	var getZvalues = function(i,method) {
+	var getZvalues = function(i,method,$t) {
 		let zs = [];
 		switch(method) {
 			case 'pressureSpeedo':
@@ -523,6 +523,8 @@ var Graphs = (function() {
 				}
 			}
 		}
+
+		$t.dataset.ref = zs;
 
 		return zs;
 	}
@@ -572,6 +574,7 @@ var Graphs = (function() {
 			for(let obj in $w.objects[method]) {
 				if($w.objects[method].hasOwnProperty(obj)) {
 					if($w.objects[method][obj].z == ref) {
+						//console.log(obj,ref,data);
 						$w.objects[method][obj].push(data);
 					}
 				}
